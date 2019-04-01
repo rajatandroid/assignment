@@ -29,7 +29,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button playButton, stopButton;
+    private Button playButton, stopButton, downloadButton;
     private ProgressDialog progressDialog;
     private static final String url = "https://ia802508.us.archive.org/5/items/testmp3testfile/mpthreetest.mp3";
     private AsyncTask asyncTask;
@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initViews() {
-        findViewById(R.id.download_button).setOnClickListener(this);
+        downloadButton = findViewById(R.id.download_button);
+        downloadButton.setOnClickListener(this);
         playButton = findViewById(R.id.play_button);
         stopButton = findViewById(R.id.stop_button);
         playButton.setOnClickListener(this);
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 inputStream.close();
 
             } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
+                Log.e("exep: ", e.getMessage());
                 return false;
             }
 
@@ -172,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             progressDialog.dismiss();
             if(s){
                 playButton.setEnabled(true);
+                downloadButton.setEnabled(false);
             }
             else{
                 Toast.makeText(MainActivity.this, "Unable to download file due to network error!", Toast.LENGTH_SHORT).show();
